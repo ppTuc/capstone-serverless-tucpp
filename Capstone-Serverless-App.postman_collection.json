@@ -1,0 +1,271 @@
+{
+	"info": {
+		"_postman_id": "3178de63-8a01-4537-9ca5-ba441019e172",
+		"name": "Capstone-Serverless-App",
+		"description": "Test user 1 (used for 'authToken' variable):\n    Email: hello@gmail.com\n    Password: Fancypass123\n\nTest user 2:\n    Email: cats@gmail.com\n    Password: Fancymeow123",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "RECIPEs",
+			"item": [
+				{
+					"name": "Get all meals",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.eu-west-2.amazonaws.com/dev/meals",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"eu-west-2",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"meals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create meal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Salad\",\n\t\"dayOfWeek\": \"Monday\"\n}"
+						},
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.eu-west-2.amazonaws.com/dev/meals",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"eu-west-2",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"meals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update meal",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Birthday cake\",\n\t\"dayOfWeek\": \"Tuesday\",\n\t\"eaten\": true\n}"
+						},
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.eu-west-2.amazonaws.com/dev/meals/{{updateId}}",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"eu-west-2",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"meals",
+								"{{updateId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete meal",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.eu-west-2.amazonaws.com/dev/meals/{{deleteId}}",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"eu-west-2",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"meals",
+								"{{deleteId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get attachment URL",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.eu-west-2.amazonaws.com/dev/meals/{{attachmentId}}/attachment",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"eu-west-2",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"meals",
+								"{{attachmentId}}",
+								"attachment"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "16035777-384d-4b39-b1fc-49058b8d9e40",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8ab61c1f-7c19-487b-a8cc-572a3c62b642",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "85c3c5a2-23b3-44ad-9d7f-806e232f9f9a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "aadbcccc-10a8-424b-915e-ef36d89fc38a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "f9b1350e-937c-4ca5-91b3-da3b9763f31d",
+			"key": "apiId",
+			"value": "vmcaxuh86b"
+		},
+		{
+			"id": "3b566fb4-0a37-4310-8e28-7624b22a1d98",
+			"key": "authToken",
+			"value": ""
+		},
+		{
+			"id": "c0e9fe72-551c-4d2b-a037-500be20fd39f",
+			"key": "updateId",
+			"value": ""
+		},
+		{
+			"id": "4fe7a328-947f-4ff8-a4f6-fe284a7f6fac",
+			"key": "deleteId",
+			"value": ""
+		},
+		{
+			"id": "6f94ba7b-dc43-4233-bbda-02844030836a",
+			"key": "attachmentId",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}

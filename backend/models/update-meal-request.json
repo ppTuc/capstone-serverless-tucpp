@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "meal",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "dayOfWeek": {
+      "type": "string"
+    },
+    "eaten": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "name",
+    "dayOfWeek",
+    "eaten"
+  ],
+  "additionalProperties": false
+}
