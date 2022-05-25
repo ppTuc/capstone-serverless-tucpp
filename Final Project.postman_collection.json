@@ -1,16 +1,15 @@
 {
 	"info": {
-		"_postman_id": "3178de63-8a01-4537-9ca5-ba441019e172",
-		"name": "Capstone-Serverless-App",
-		"description": "Test user 1 (used for 'authToken' variable):\n    Email: hello@gmail.com\n    Password: Fancypass123\n\nTest user 2:\n    Email: cats@gmail.com\n    Password: Fancymeow123",
+		"_postman_id": "d0700d24-79ec-487e-8403-b565bef7f8e0",
+		"name": "Udacity C4 Project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "RECIPEs",
+			"name": "TODOs",
 			"item": [
 				{
-					"name": "Get all meals",
+					"name": "Get all todos",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -20,26 +19,30 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "https://{{apiId}}.execute-api.eu-west-2.amazonaws.com/dev/meals",
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/dev/todos",
 							"protocol": "https",
 							"host": [
 								"{{apiId}}",
 								"execute-api",
-								"eu-west-2",
+								"us-east-1",
 								"amazonaws",
 								"com"
 							],
 							"path": [
 								"dev",
-								"meals"
+								"todos"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Create meal",
+					"name": "Create todo",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -57,30 +60,30 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Salad\",\n\t\"dayOfWeek\": \"Monday\"\n}"
+							"raw": "{\n\t\"name\": \"Water flowers\",\n\t\"dueDate\": \"2019-06-11\"\n}"
 						},
 						"url": {
-							"raw": "https://{{apiId}}.execute-api.eu-west-2.amazonaws.com/dev/meals",
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/dev/todos",
 							"protocol": "https",
 							"host": [
 								"{{apiId}}",
 								"execute-api",
-								"eu-west-2",
+								"us-east-1",
 								"amazonaws",
 								"com"
 							],
 							"path": [
 								"dev",
-								"meals"
+								"todos"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Update meal",
+					"name": "Update todo",
 					"request": {
-						"method": "PATCH",
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -96,29 +99,29 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Birthday cake\",\n\t\"dayOfWeek\": \"Tuesday\",\n\t\"eaten\": true\n}"
+							"raw": "{\n\t\"name\": \"Change the world\",\n\t\"dueDate\": \"2019-12-11\",\n\t\"done\": true\n}"
 						},
 						"url": {
-							"raw": "https://{{apiId}}.execute-api.eu-west-2.amazonaws.com/dev/meals/{{updateId}}",
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/dev/todos/35dd600f-43c2-4649-903c-615e1586a26f",
 							"protocol": "https",
 							"host": [
 								"{{apiId}}",
 								"execute-api",
-								"eu-west-2",
+								"us-east-1",
 								"amazonaws",
 								"com"
 							],
 							"path": [
 								"dev",
-								"meals",
-								"{{updateId}}"
+								"todos",
+								"35dd600f-43c2-4649-903c-615e1586a26f"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete meal",
+					"name": "Delete todo",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -139,19 +142,19 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://{{apiId}}.execute-api.eu-west-2.amazonaws.com/dev/meals/{{deleteId}}",
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/dev/todos/fe671583-4512-45f6-9475-4265c04362fb",
 							"protocol": "https",
 							"host": [
 								"{{apiId}}",
 								"execute-api",
-								"eu-west-2",
+								"us-east-1",
 								"amazonaws",
 								"com"
 							],
 							"path": [
 								"dev",
-								"meals",
-								"{{deleteId}}"
+								"todos",
+								"fe671583-4512-45f6-9475-4265c04362fb"
 							]
 						}
 					},
@@ -173,19 +176,19 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://{{apiId}}.execute-api.eu-west-2.amazonaws.com/dev/meals/{{attachmentId}}/attachment",
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/dev/todos/3836b777-9bc4-4429-9b79-ba4e4f5f91c0/attachment",
 							"protocol": "https",
 							"host": [
 								"{{apiId}}",
 								"execute-api",
-								"eu-west-2",
+								"us-east-1",
 								"amazonaws",
 								"com"
 							],
 							"path": [
 								"dev",
-								"meals",
-								"{{attachmentId}}",
+								"todos",
+								"3836b777-9bc4-4429-9b79-ba4e4f5f91c0",
 								"attachment"
 							]
 						}
@@ -197,7 +200,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "16035777-384d-4b39-b1fc-49058b8d9e40",
+						"id": "ce2b42d4-8cc5-4f30-a6ed-e7f0f303c3fd",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -207,22 +210,21 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "8ab61c1f-7c19-487b-a8cc-572a3c62b642",
+						"id": "efb16c49-3866-4241-97d1-360ad72736d8",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "85c3c5a2-23b3-44ad-9d7f-806e232f9f9a",
+				"id": "2e83c0fe-6650-44d5-a90f-4c27ff720d83",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -232,7 +234,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "aadbcccc-10a8-424b-915e-ef36d89fc38a",
+				"id": "977c227e-2df3-42eb-9a48-ec25e2f7eeae",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -242,30 +244,16 @@
 	],
 	"variable": [
 		{
-			"id": "f9b1350e-937c-4ca5-91b3-da3b9763f31d",
+			"id": "bf208e6b-f66d-4008-9366-dd541ff65425",
 			"key": "apiId",
-			"value": "vmcaxuh86b"
+			"value": "",
+			"type": "string"
 		},
 		{
-			"id": "3b566fb4-0a37-4310-8e28-7624b22a1d98",
+			"id": "9bc6399a-d2bb-4f2d-9ffa-8480370d383c",
 			"key": "authToken",
-			"value": ""
-		},
-		{
-			"id": "c0e9fe72-551c-4d2b-a037-500be20fd39f",
-			"key": "updateId",
-			"value": ""
-		},
-		{
-			"id": "4fe7a328-947f-4ff8-a4f6-fe284a7f6fac",
-			"key": "deleteId",
-			"value": ""
-		},
-		{
-			"id": "6f94ba7b-dc43-4233-bbda-02844030836a",
-			"key": "attachmentId",
-			"value": ""
+			"value": "",
+			"type": "string"
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

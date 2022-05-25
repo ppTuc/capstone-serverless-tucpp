@@ -1,24 +1,19 @@
 import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
-import * as uuid from 'uuid'
 
-import { generateUploadUrl, updateAttachmentUrl } from '../../businessLogic/todos'
+import { getTodos } from '../../businessLogic/todos'
 import { createLogger } from '../../utils/logger'
 import { getUserId } from '../utils'
 
-const logger = createLogger('generateUploadUrl')
+const logger = createLogger('getTodos')
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  logger.info('Processing generateUploadUrl event', { event })
+  logger.info('Processing getTodos event', { event })
 
   const userId = getUserId(event)
-  const todoId = event.pathParameters.todoId
-  const attachmentId = uuid.v4()
 
-  const uploadUrl = await generateUploadUrl(attachmentId)
-
-  await updateAttachmentUrl(userId, todoId, attachmentId)
+  const items = await getTodos(userId)
 
   return {
     statusCode: 200,
@@ -26,7 +21,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       'Access-Control-Allow-Origin': '*'
     },
     body: JSON.stringify({
-      uploadUrl
+      items
     })
   }
 }

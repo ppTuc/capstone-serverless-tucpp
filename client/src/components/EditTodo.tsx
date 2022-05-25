@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Form, Button } from 'semantic-ui-react'
 import Auth from '../auth/Auth'
-import { getUploadUrl, uploadFile } from '../api/meals-api'
+import { getUploadUrl, uploadFile } from '../api/todos-api'
 
 enum UploadState {
   NoUpload,
@@ -9,25 +9,25 @@ enum UploadState {
   UploadingFile,
 }
 
-interface EditMealProps {
+interface EditTodoProps {
   match: {
     params: {
-      mealId: string
+      todoId: string
     }
   }
   auth: Auth
 }
 
-interface EditMealState {
+interface EditTodoState {
   file: any
   uploadState: UploadState
 }
 
-export class EditMeal extends React.PureComponent<
-  EditMealProps,
-  EditMealState
+export class EditTodo extends React.PureComponent<
+  EditTodoProps,
+  EditTodoState
 > {
-  state: EditMealState = {
+  state: EditTodoState = {
     file: undefined,
     uploadState: UploadState.NoUpload
   }
@@ -51,7 +51,7 @@ export class EditMeal extends React.PureComponent<
       }
 
       this.setUploadState(UploadState.FetchingPresignedUrl)
-      const uploadUrl = await getUploadUrl(this.props.auth.getIdToken(), this.props.match.params.mealId)
+      const uploadUrl = await getUploadUrl(this.props.auth.getIdToken(), this.props.match.params.todoId)
 
       this.setUploadState(UploadState.UploadingFile)
       await uploadFile(uploadUrl, this.state.file)

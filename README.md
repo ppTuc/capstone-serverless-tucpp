@@ -1,141 +1,53 @@
-# Capstone Serverless Project
+# Serverless TODO
 
-This repo is for a simple **Meal Planner** application using AWS Lambda and Serverless framework.
+A simple TODO application using AWS Lambda and Serverless framework, for the final project of the Udacity Cloud Developer Nanodegree.
 
-# Functionality of the application
+## Functionality of the application
 
-This application will allow creating/removing/updating/fetching MEAL items. Each MEAL item can optionally have an attachment image. Each user only has access to the MEAL items that he/she has created.
+This application will allow creating/removing/updating/fetching TODO items. Each TODO item can optionally have an attachment image. Each user only has access to TODO items that he/she has created.
 
-# MEAL items
+## Prerequisites
 
-The application stores MEAL items, where each MEAL item contains the following fields:
+### Node.js and NPM
 
-* `mealId` (string) - a unique id for a MEAL item
-* `createdAt` (string) - date and time when an item was created
-* `name` (string) - name of a MEAL item (e.g. "Salad wrap")
-* `dayOfWeek` (string) - day of the week on which the MEAL is to be eaten (default: the day of item creation)
-* `eaten` (boolean) - true if MEAL item has been eaten, false otherwise
-* `attachmentUrl` (string) (optional) - a URL pointing to an image attached to a MEAL item
-* `userId` (string) - id of a user who created a MEAL item.
+Before getting started, make sure Node.js is downloaded and installed. The latest version of Node.js can be downloaded from [nodejs.org](https://nodejs.com/en/download) and it's recommended to use the LTS version.
 
-# Functions implemented
+### Serverless Framework
 
-The `serverless.yml` file has the following functions:
+Serverless Framework is used to build and deploy the application. Instructions for installing Serverless Framework can be found [here](https://serverless.com/framework/docs/getting-started/).
 
-* `Auth` - a custom authorizer for API Gateway that is added to all other functions.
+### Amazon Web Services (AWS)
 
-* `GetMeals` -  returns all MEALs for a current user. A user id can be extracted from a JWT token that is sent by the frontend.
+An AWS account is required to deploy the application.
 
-* `CreateMeal` - creates a new MEAL for a current user. The shape of data sent by a client application to this function can be found in the `CreateMealRequest.ts` file. It receives a new MEAL item to be created in JSON format.
+### Auth0
 
-* `UpdateMeal` - updates a MEAL item created by a current user. The shape of data sent by a client application to this function can be found in the `UpdateMealRequest.ts` file. It receives an object that contains three fields that can be updated in a MEAL item. The id of an item that should be updated is passed as a URL parameter.
+Auth0 is used for authentication and an Auth0 application should be created with asymmetrically encrypted keys (RS256).
 
-* `DeleteMeal` - deletes a MEAL item created by a current user. Expects an id of a MEAL item to remove. Also deletes any attached image from the S3 bucket.
+## Getting started
 
-* `GenerateUploadUrl` - returns a pre-signed URL that can be used to upload an attachment file for a MEAL item. An id of a user can be extracted from a JWT token passed by a client. Also deletes any previously attached image from the S3 bucket to make room for new image.
+### Backend
 
-# Frontend
+To build and deploy the application, first edit the `backend/serverless.yml` file to set the appropriate AWS and Auth0 parameters, then run the following commands:
 
-The `client` folder contains a web application that can use the API that should be developed in the project. The only file that you need to edit is the `config.ts` file in the `client` folder.
+1. cd to the backend folder: `cd backend`
+2. Install dependencies: `npm install`
+3. Build and deploy to AWS: `sls deploy -v`
 
-## Authentication
+### Frontend
 
-This application implements authentication via an Auth0 application. The "domain" and "client id" is copied to the `config.ts` file in the `client` folder. This project uses asymmetrically encrypted JWT tokens.
+To run the client application, first edit the `client/src/config.ts` file to set the appropriate AWS and Auth0 parameters, then run the following commands:
 
-# Best practices
+1. cd to the client folder: `cd client`
+2. Install dependencies: `npm install`
+3. Run the client application: `npm run start`
 
-The following best practices, suggested in the 6th lesson of the Udacity Cloud Developer Nanodegree, have been implemented as follows:
+This should start a development server with the React application that will interact with the serverless TODO application.
 
-## Logging
+### Postman collection
 
-The starter code came with a configured [Winston](https://github.com/winstonjs/winston) logger that creates [JSON formatted](https://stackify.com/what-is-structured-logging-and-why-developers-need-it/) log statements. It can write log messages like this:
+A Postman collection is available in the root folder of the project, as an alternative way to test the API.
 
-```ts
-import { createLogger } from '../../utils/logger'
-const logger = createLogger('auth')
+## Acknowledgements
 
-// You can provide additional information with every log statement
-// This information can then be used to search for log statements in a log storage system
-logger.info('User was authorized', {
-  // Additional information stored with a log statement
-  key: 'value'
-})
-```
-
-## Local Secondary Index
-
-To store MEAL items, a DynamoDB table with local secondary index(es) has been used.
-
-```yml
-
-MealsTable:
-  Type: AWS::DynamoDB::Table
-  Properties:
-    AttributeDefinitions:
-      - AttributeName: partitionKey
-        AttributeType: S
-      - AttributeName: sortKey
-        AttributeType: S
-      - AttributeName: indexKey
-        AttributeType: S
-    KeySchema:
-      - AttributeName: partitionKey
-        KeyType: HASH
-      - AttributeName: sortKey
-        KeyType: RANGE
-    BillingMode: PAY_PER_REQUEST
-    TableName: ${self:provider.environment.MEALS_TABLE}
-    LocalSecondaryIndexes:
-      - IndexName: ${self:provider.environment.INDEX_NAME}
-        KeySchema:
-          - AttributeName: partitionKey
-            KeyType: HASH
-          - AttributeName: indexKey
-            KeyType: RANGE
-        Projection:
-          ProjectionType: ALL # What attributes will be copied to an index
-
-```
-
-## Using Query()
-
-The `query()` method is used to query an index as follows:
-
-```ts
-await this.dynamoDBClient
-  .query({
-    TableName: 'table-name',
-    IndexName: 'index-name',
-    KeyConditionExpression: 'paritionKey = :paritionKey',
-    ExpressionAttributeValues: {
-      ':paritionKey': partitionKeyValue
-    }
-  })
-  .promise()
-```
-
-# How to run the application
-
-## Backend
-
-To deploy an application run the following commands:
-
-```
-cd backend
-npm install
-sls deploy -v
-```
-
-## Frontend
-
-To run a client application first edit the `client/src/config.ts` file to set correct parameters. And then run the following commands:
-
-```
-cd client
-npm install
-npm run start
-```
-
-# Postman collection
-
-There is a provided Postman collection that contains sample requests in this project.
+This project was bootstrapped with [https://github.com/udacity/cloud-developer/tree/master/course-04/project/c4-final-project-starter-code](https://github.com/udacity/cloud-developer/tree/master/course-04/project/c4-final-project-starter-code).
